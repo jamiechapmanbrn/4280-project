@@ -55,7 +55,7 @@ gzero = minreal([ H(1,1) ,0 ; 0, H(2,2) ]);
 inv(H)
 D = minreal( inv(H) * gzero, 0.01);
 
-dcgain(D)
+decoupler = dcgain(D)
 
 % %Simplified Decoupler
 % 
