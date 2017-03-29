@@ -9,7 +9,6 @@ m = [kp(1)*gamma(1,1)/aT, kp(2)*gamma(1,2)/aT;
 v = [6.743 6.012];
 h = [(m(1,1)*v(1)/o)^2, (m(1,2)*v(2)/o)^2;
      (m(1,1)*v(1)/o+m(2,1)*v(2)/o)^2, (m(2,2)*v(1)/o+m(1,2)*v(2)/o)^2;];
-h
  
 y1 = h(2,1);
 y2 = h(2,2);
@@ -50,23 +49,19 @@ h22 = [(m(2,2)*2*h(2,2)^0.5/o)/(2*h(2,2)^0.5/o*s +1) (m(1,2)*2*h(2,2)^0.5/o)/(2*
 % ideal Decoupler
 
 
-H = zpk([h21; h22])
-gzero = minreal([ H(1,1) ,0 ; 0, H(2,2) ]);
-inv(H)
-D = minreal( inv(H) * gzero, 0.01);
+H = zpk([h21; h22]);
 
-decoupler = dcgain(D)
 
-% %Simplified Decoupler
-% 
-% H = zpk([h21; h22]);
-% 
-% d12 = -H(1,2)/H(1,1)
-% [z,p,k] = zpkdata(d12);
-% k
-% 
-% 
-% d21 = -H(2,1)/H(2,2)
-% [z,p,k] = zpkdata(d21);
-% k
+% gzero = minreal([ H(1,1) ,0 ; 0, H(2,2) ]);
+% inv(H)
+% D = minreal( inv(H) * gzero, 0.01);
+%decoupler = dcgain(D)
+
+%Simplified Decoupler
+
+d12 = -H(1,2)/H(1,1);
+dcgain(d12)
+d21 = -H(2,1)/H(2,2);
+dcgain(d21)
+
 
